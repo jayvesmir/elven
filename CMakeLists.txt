@@ -10,4 +10,8 @@ add_executable(
     src/Image.cpp
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE src/include)
+target_include_directories(${PROJECT_NAME}
+                           PRIVATE
+                           src/include
+                           src/glm
+                        )
