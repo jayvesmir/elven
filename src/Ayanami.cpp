@@ -1,37 +1,33 @@
 // STL
 #include "Ayanami.hpp"
 
+#include "Frame.hpp"
 #include "Image.hpp"
+#include "Camera.hpp"
 
 int main(int argc, char** argv) {
     // Initial frame parameters
-    int image_width = 256;
-    int image_height = 256;
+    const auto aspect_ratio = 16.0 / 9.0;
+    const int image_width = 400;
+    const int image_height = (int)(image_width / aspect_ratio);
+    Frame frame(image_width, image_height);
 
-    // Render
+    // Camera
+    /* RTIOW */
 
-    uint8_t* data = new uint8_t[image_width * image_height * 3];
-    int i = 0;
-    for (int y = image_height-1; y >= 0; y--) {
-        for (int x = 0; x < image_width; x++) {
-            auto r = double(x) / (image_width-1);
-            auto g = double(y) / (image_height-1);
-            auto b = 0.25;
+    double viewport_height = 2.0;
+    double viewport_width = aspect_ratio * viewport_height;
+    double focal_length = 1.0;
 
-            int ir = (int)(255.999 * r);
-            int ig = (int)(255.999 * g);
-            int ib = (int)(255.999 * b);
+    glm::vec3 origin = glm::vec3(0);
+    glm::vec3 horizontal = glm::vec3(viewport_width, 0, 0);
+    glm::vec3 vertical = glm::vec3(0, viewport_height, 0);
+    glm::vec3 lower_left_corner = origin - horizontal/glm::vec3(2) - vertical/glm::vec3(2) - glm::vec3(0, 0, focal_length);
+    Camera cam(viewport_width, viewport_height, focal_length, origin);
 
-            data[i] = ir;
-            data[i + 1] = ig;
-            data[i + 2] = ib;
-            i += 3;
-        }
-    }
+    frame.render(cam);
 
-    if (!Image::save_ppm("image.ppm", image_width, image_height, data))
+    if (!Image::save_ppm("image.ppm", image_width, image_height, frame.data))
         printf("[Error] failed to save image");
         exit(-1);
-    
-    delete[] data;
 }

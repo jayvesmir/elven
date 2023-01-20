@@ -8,10 +8,11 @@ add_executable(
     ${PROJECT_NAME}
     src/Ayanami.cpp
     src/Image.cpp
+    src/Frame.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
                            PRIVATE
                            src/include
-                           src/glm
+                           lib/glm
                         )
