@@ -12,12 +12,14 @@ inline double random_double() {
 }
 
 void Frame::render(Camera& cam, const World& world) {
+    printf("[Render] Initiating Threads\n");
     // Prepare row indices (I've no idea how to do this correctly)
     std::vector<int> rows;
     rows.reserve(height);
     for (int _y = 0; _y < height; _y++)
         rows.push_back(_y);
 
+    printf("[Render] Rendering\n");
     Timer timer("Render");
 
 #if MT
@@ -48,7 +50,7 @@ void Frame::render(Camera& cam, const World& world) {
             Ray ray(cam.origin, cam.lower_left_corner + u * cam.horizontal + v * cam.vertical - cam.origin);
             glm::vec3 color_vec = Renderer::per_pixel(ray, world);
             uint32_t color = Renderer::as_pixel(color_vec);
-            
+
             #endif
 
             data[x + y * width] = color;

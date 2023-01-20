@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
     frame.render(cam, world);
 
     printf("[Save] Saving %s\n", filename);
-    if (!Image::save_png(filename, image_width, image_height, frame.data_as_uint8())) {
-        printf("[Error] failed to save image\n");
+    if (!Image::save(filename, image_width, image_height, frame.data_as_uint8())) {
+        printf("[Error] failed to save %s\n", filename);
         exit(-1);
     }
     printf("[Save] Successfully saved %s\n", filename);
