@@ -17,7 +17,7 @@ public:
         delete[] data;
     }
 
-    void render(Camera& camera, World world);
+    void render(Camera& camera, const World& world);
     uint8_t* data_as_uint8() {
         uint8_t* _data = new uint8_t[width * height * 3];
 

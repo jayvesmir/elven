@@ -15,7 +15,7 @@ namespace Renderer {
 		return (NULL << 24) | (b << 16) | (g << 8) | r;
     }
 
-    glm::vec3 per_pixel(Ray& ray, World& world) {
+    glm::vec3 per_pixel(Ray& ray, const World& world) {
         Hit hit;
         if (world.hit(ray, 0, infinity, hit)) {
             return glm::vec3(0.5) * (hit.normal + glm::vec3(1));

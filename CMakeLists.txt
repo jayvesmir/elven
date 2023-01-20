@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(elven)
 
 set(CMAKE_EXPORT_COMPILE_COMANDS on)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
     ${PROJECT_NAME}

@@ -6,7 +6,7 @@
 int main(int argc, char** argv) {
     // Initial frame parameters
     const auto aspect_ratio = 21.0 / 9.0;
-    const int image_width = 400;
+    const int image_width = 1920;
     const int image_height = (int)(image_width / aspect_ratio);
     Frame frame(image_width, image_height);
 
