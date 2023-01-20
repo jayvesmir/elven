@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     Frame frame(image_width, image_height);
 
     // Camera
-    /* RTIOW */
+    /* RTIOW Copy */
 
     double viewport_height = 2.0;
     double viewport_width = aspect_ratio * viewport_height;

@@ -9,6 +9,8 @@ add_executable(
     src/Ayanami.cpp
     src/Image.cpp
     src/Frame.cpp
+    src/Ray.cpp
+    src/Renderer.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
