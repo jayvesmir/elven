@@ -11,6 +11,8 @@ add_executable(
     src/Frame.cpp
     src/Ray.cpp
     src/Renderer.cpp
+    src/Object.cpp
+    src/World.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
