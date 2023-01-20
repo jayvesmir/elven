@@ -23,11 +23,7 @@ int main(int argc, char** argv) {
     double focal_length = 1.0;
 
     glm::vec3 origin = glm::vec3(0);
-    glm::vec3 horizontal = glm::vec3(viewport_width, 0, 0);
-    glm::vec3 vertical = glm::vec3(0, viewport_height, 0);
-    glm::vec3 lower_left_corner = origin - horizontal/glm::vec3(2) - vertical/glm::vec3(2) - glm::vec3(0, 0, focal_length);
     Camera cam(viewport_width, viewport_height, focal_length, origin);
-
     frame.render(cam, world);
 
     const char* filename = "image.png";
