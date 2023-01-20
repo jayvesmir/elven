@@ -5,5 +5,5 @@
 
 namespace Renderer {
 
-    bool hit_sphere(const glm::vec3& center, double radius, Ray& ray);
+    double hit_sphere(const glm::vec3& center, double radius, Ray& ray);
 }

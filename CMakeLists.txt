@@ -15,6 +15,7 @@ add_executable(
 
 target_include_directories(${PROJECT_NAME}
                            PRIVATE
+                           lib/
                            src/include
                            lib/glm
                         )
