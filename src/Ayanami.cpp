@@ -4,11 +4,16 @@
 #include "Frame.hpp"
 
 int main(int argc, char** argv) {
+    const char* filename = "image.png";
+    if (argc >= 2)
+        filename = argv[1];
+
     // Initial frame parameters
     const auto aspect_ratio = 21.0 / 9.0;
     const int image_width = 1920;
     const int image_height = (int)(image_width / aspect_ratio);
-    Frame frame(image_width, image_height);
+    const int num_samples = 25;
+    Frame frame(image_width, image_height, num_samples);
 
     // World
     World world;
@@ -26,7 +31,6 @@ int main(int argc, char** argv) {
     Camera cam(viewport_width, viewport_height, focal_length, origin);
     frame.render(cam, world);
 
-    const char* filename = "image.png";
     printf("[Save] Saving %s\n", filename);
     if (!Image::save_png(filename, image_width, image_height, frame.data_as_uint8())) {
         printf("[Error] failed to save image\n");

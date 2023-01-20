@@ -1,5 +1,11 @@
 #include "Renderer.hpp"
 
+inline double clamp(double x, double min, double max) {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+}
+
 namespace Renderer {
     uint32_t as_pixel(uint8_t r, uint8_t g, uint8_t b) {
         r *= 255;
@@ -9,9 +15,9 @@ namespace Renderer {
     }
 
     uint32_t as_pixel(glm::vec3& color) {
-        uint8_t r = (uint8_t)(color.r * 255.0f);
-		uint8_t g = (uint8_t)(color.g * 255.0f);
-		uint8_t b = (uint8_t)(color.b * 255.0f);
+        uint8_t r = (uint8_t)(clamp(color.r, 0.0, 0.999) * 256.0f);
+		uint8_t g = (uint8_t)(clamp(color.g, 0.0, 0.999) * 256.0f);
+		uint8_t b = (uint8_t)(clamp(color.b, 0.0, 0.999) * 256.0f);
 		return (NULL << 24) | (b << 16) | (g << 8) | r;
     }
 

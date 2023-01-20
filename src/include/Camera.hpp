@@ -1,7 +1,7 @@
 #pragma once
-#include "Ayanami.hpp"
-
 #include <glm/vec3.hpp>
+
+#include "Ray.hpp"
 
 class Camera {
 public:

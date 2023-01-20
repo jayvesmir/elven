@@ -3,6 +3,7 @@ project(elven)
 
 set(CMAKE_EXPORT_COMPILE_COMANDS on)
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_BUILD_TYPE Release)
 
 add_executable(
     ${PROJECT_NAME}

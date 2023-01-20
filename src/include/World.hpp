@@ -1,5 +1,4 @@
 #pragma once
-#include "Ayanami.hpp"
 #include "Object.hpp"
 
 class World : public Object {

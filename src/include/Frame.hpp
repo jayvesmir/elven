@@ -9,7 +9,7 @@
 class Frame {
 public:
     Frame() {}
-    Frame(int width, int height) : width(width), height(height) {
+    Frame(int width, int height, int num_samples) : width(width), height(height), samples_per_pixel(num_samples) {
         data = new uint32_t[width * height];
     }
 
@@ -33,5 +33,5 @@ public:
 
 public:
     uint32_t* data;
-    int width, height;
+    int width, height, samples_per_pixel;
 };
