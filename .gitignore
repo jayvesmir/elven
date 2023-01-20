@@ -1,0 +1,8 @@
+# Directories
+build/
+.vscode/
+notes/
+
+# Files
+run.sh
+image.*
