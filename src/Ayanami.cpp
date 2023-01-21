@@ -12,8 +12,9 @@ int main(int argc, char** argv) {
     const auto aspect_ratio = 21.0 / 9.0;
     const int image_width = 1920;
     const int image_height = (int)(image_width / aspect_ratio);
-    const int num_samples = 25;
-    Frame frame(image_width, image_height, num_samples);
+    const int num_samples = 1 << 7; // 128
+    const int max_depth = 50;
+    Frame frame(image_width, image_height, num_samples, max_depth);
 
     // World
     World world;

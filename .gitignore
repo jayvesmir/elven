@@ -4,5 +4,6 @@ build/
 notes/
 
 # Files
-run.sh
+/run.*
+/clean.*
 /image.*

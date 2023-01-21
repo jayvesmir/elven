@@ -6,3 +6,6 @@
 #include <vector>
 #include <limits>
 #include <random>
+#include <execution>
+
+#define MT 1

@@ -14,6 +14,7 @@ add_executable(
     ${PROJECT_NAME}
     src/Ayanami.cpp
     src/Image.cpp
+    src/Utils.cpp
     src/Frame.cpp
     src/Ray.cpp
     src/Renderer.cpp
