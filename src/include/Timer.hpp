@@ -4,7 +4,7 @@ using namespace std::chrono;
 
 class Timer {
 public:
-    std::chrono::time_point<std::chrono::system_clock> start, end;
+    std::chrono::steady_clock::time_point start, end;
     std::chrono::duration<float> duration;
     const char* title;
 
