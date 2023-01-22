@@ -30,11 +30,13 @@ void Frame::render(Camera& cam, const World& world) {
         }
         #if TRACKING
         tracker.update();
-        if (y % 15 == 0)
+        if (y % SAMPLE_RATE == 0)
             tracker.write();
         #endif
     });
+    #if TRACKING 
     printf("\n");
+    #endif
 #else
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
