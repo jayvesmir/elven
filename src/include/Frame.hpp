@@ -5,6 +5,9 @@
 #include "World.hpp"
 #include "Camera.hpp"
 #include "Renderer.hpp"
+#include "Timer.hpp"
+#include "Tracker.hpp"
+#include "Utils.hpp"
 
 class Frame {
 public:

@@ -1,8 +1,5 @@
 #include "Frame.hpp"
 
-#include "Timer.hpp"
-#include "Utils.hpp"
-
 void Frame::render(Camera& cam, const World& world) {
     printf("[Render] Initiating Threads\n");
     // Prepare row indices (I've no idea how to do this correctly)
@@ -12,11 +9,12 @@ void Frame::render(Camera& cam, const World& world) {
         rows.push_back(_y);
 
     printf("[Render] Rendering\n");
+    ProgressTracker tracker("Render", (uint64_t)height);
     Timer timer("Render");
 
 #if MT
     std::for_each(std::execution::par, rows.begin(), rows.end(),
-    [this, cam, world](int y) {
+    [this, cam, world, &tracker](int y) {
         for (int x = 0; x < width; x++) {
             glm::vec3 final_color(0);
             for (int i = 0; i < samples_per_pixel-1; i++) {
@@ -30,7 +28,13 @@ void Frame::render(Camera& cam, const World& world) {
             uint32_t color = Renderer::as_pixel(final_color, 1.0 / samples_per_pixel, samples_per_pixel);
             data[x + y * width] = color;
         }
+        #if TRACKING
+        tracker.update();
+        if (y % 15 == 0)
+            tracker.write();
+        #endif
     });
+    printf("\n");
 #else
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
