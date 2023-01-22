@@ -2,9 +2,9 @@
 
 namespace Renderer {
     uint32_t as_pixel(uint8_t r, uint8_t g, uint8_t b, double scale, int spp) {
-        r = sqrt(scale * r);
-        g = sqrt(scale * g);
-        b = sqrt(scale * b);
+        r = (uint8_t)sqrt(scale * r);
+        g = (uint8_t)sqrt(scale * g);
+        b = (uint8_t)sqrt(scale * b);
         r *= 255;
 		g *= 255;
 		b *= 255;
@@ -28,9 +28,13 @@ namespace Renderer {
 
         Hit hit;
         if (world.hit(ray, 0.0001, infinity, hit)) {
-            glm::vec3 target = glm::vec3(hit.point) + glm::vec3(hit.normal) + r_sphere_vec3();
-            Ray ray = Ray(hit.point, target - hit.point);
-            return glm::vec3(0.5) * per_pixel(ray, world, depth - 1);
+            Ray scattered;
+            glm::vec3 color(0);
+
+            if (hit.material->scatter(ray, hit, color, scattered))
+                return color * per_pixel(scattered, world, depth - 1);
+            
+            return glm::vec3(0);
         }
 
         glm::vec3 dir = glm::normalize(ray.direction);

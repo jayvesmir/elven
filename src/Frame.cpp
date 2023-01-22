@@ -14,7 +14,7 @@ void Frame::render(Camera& cam, const World& world) {
 
 #if MT
     std::for_each(std::execution::par, rows.begin(), rows.end(),
-    [this, cam, world, &tracker](int y) {
+    [this, &cam, &world, &tracker](int y) {
         for (int x = 0; x < width; x++) {
             glm::vec3 final_color(0);
             for (int i = 0; i < samples_per_pixel-1; i++) {

@@ -1,5 +1,6 @@
 #include "Object.hpp"
 
+/* RTIOW Copy */
 bool Sphere::hit(Ray& ray, double t_min, double t_max, Hit& hit) const {
     glm::vec3 oc = ray.origin - position;
     auto a = glm::dot(ray.direction, ray.direction);
@@ -21,6 +22,7 @@ bool Sphere::hit(Ray& ray, double t_min, double t_max, Hit& hit) const {
     hit.t = root;
     hit.point = ray.at(hit.t);
     hit.normal = (hit.point - position) / glm::vec3(radius);
+    hit.material = material;
 
     return true;
 }

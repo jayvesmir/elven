@@ -5,6 +5,7 @@
 #include "Ray.hpp"
 #include "World.hpp"
 #include "Utils.hpp"
+#include "Material.hpp"
 
 namespace Renderer {
     uint32_t as_pixel(uint8_t r, uint8_t g, uint8_t b, double scale, int spp);

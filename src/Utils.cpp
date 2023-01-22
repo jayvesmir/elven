@@ -1,5 +1,9 @@
 #include "Utils.hpp"
 
+#ifdef _WIN32
+#define ZERO_TOLERANCE 1e-4
+#endif
+
 double r_double() {
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
     static thread_local std::mt19937 generator;
@@ -32,6 +36,22 @@ glm::vec3 r_sphere_vec3() {
         if (glm::dot(vec, vec) >= 1) continue;
         return vec;
     }
+}
+
+glm::vec3 r_hemisphere_vec3(glm::vec3& normal) {
+    glm::vec3 unit_sphere = glm::normalize(r_sphere_vec3());
+    if (dot(unit_sphere, normal) > 0.0) // In the same hemisphere as the normal
+        return unit_sphere;
+    else
+        return -unit_sphere;
+}
+
+bool near_zero(double x) {
+    return (x < ZERO_TOLERANCE);
+}
+
+bool near_zero(glm::vec3& x) {
+    return (glm::all(glm::lessThanEqual(x, glm::vec3(ZERO_TOLERANCE))));
 }
 
 double clamp(double x, double min, double max) {
