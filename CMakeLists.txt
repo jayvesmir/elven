@@ -20,7 +20,6 @@ add_executable(
     src/Renderer.cpp
     src/Object.cpp
     src/World.cpp
-    src/Material.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

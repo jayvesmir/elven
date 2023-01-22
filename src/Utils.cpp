@@ -1,7 +1,7 @@
 #include "Utils.hpp"
 
 #ifdef _WIN32
-#define ZERO_TOLERANCE 1e-4
+#define ZERO_TOLERANCE 1e-8
 #endif
 
 double r_double() {

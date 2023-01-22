@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     World world;
     shared_ptr<Material> material_ground = make_shared<Diffuse>(glm::vec3(0.8, 0.8, 0.0));
     shared_ptr<Material> material_center = make_shared<Diffuse>(glm::vec3(1.0, 0.5, 0.5));
-    shared_ptr<Material> material_left   = make_shared<Dielectric>(1.5);
+    shared_ptr<Material> material_left   = make_shared<Metal>(glm::vec3(0.8, 0.8, 0.8), 0.1);
     shared_ptr<Material> material_right  = make_shared<Metal>(glm::vec3(0.8, 0.6, 0.2), 1.0);
 
     world.append(make_shared<Sphere>(glm::vec3( 0.0, -100.5, -1.0), 100.0, material_ground));
