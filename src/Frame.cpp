@@ -21,7 +21,7 @@ void Frame::render(Camera& cam, const World& world) {
                 auto u = glm::vec3(double(x + r_double()) / (width-1));
                 auto v = glm::vec3(double(y + r_double()) / (height-1));
 
-                Ray ray(cam.origin, cam.lower_left_corner + u * cam.horizontal + v * cam.vertical - cam.origin);
+                Ray ray = cam.get_ray(u, v);
                 glm::vec3 color_vec = Renderer::per_pixel(ray, world, rec_depth);
                 final_color += color_vec;
             }

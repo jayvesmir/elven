@@ -58,8 +58,8 @@ public:
     virtual bool scatter(
         const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out
     ) const override {
-        color = glm::vec3(1.0, 1.0, 1.0);
-        float refraction_ratio = hit.front ? (1.0/refraction_index) : refraction_index;
+        color = glm::vec3(1.0);
+        double refraction_ratio = hit.front ? (1.0 / refraction_index) : refraction_index;
 
         glm::vec3 unit_direction = glm::normalize(ray.direction);
         double cos_theta = fmin(glm::dot(-unit_direction, hit.normal), 1.0);
@@ -68,10 +68,11 @@ public:
         bool cannot_refract = refraction_ratio * sin_theta > 1.0;
         glm::vec3 direction;
 
-        if (cannot_refract)
+        if (cannot_refract) {
             direction = glm::reflect(unit_direction, hit.normal);
-        else
-            direction = glm::refract(unit_direction, hit.normal, refraction_ratio);
+        } else {
+            direction = glm::refract(unit_direction, hit.normal, reinterpret_cast<float&>(refraction_ratio));
+        }
 
         ray_out = Ray(hit.point, direction);
         return true;

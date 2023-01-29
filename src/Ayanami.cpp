@@ -18,26 +18,23 @@ int main(int argc, char** argv) {
     Frame frame(image_width, image_height, num_samples, max_depth);
 
     // World
+    double R = glm::cos(3.141592 / 4.0);
     World world;
     shared_ptr<Material> material_ground = make_shared<Diffuse>(glm::vec3(0.8, 0.8, 0.0));
-    shared_ptr<Material> material_center = make_shared<Diffuse>(glm::vec3(1.0, 0.5, 0.5));
-    shared_ptr<Material> material_left   = make_shared<Metal>(glm::vec3(0.8, 0.8, 0.8), 0.1);
-    shared_ptr<Material> material_right  = make_shared<Metal>(glm::vec3(0.8, 0.6, 0.2), 1.0);
+    shared_ptr<Material> material_center = make_shared<Diffuse>(glm::vec3(0.1, 0.2, 0.5));
+    shared_ptr<Material> material_left   = make_shared<Metal>(glm::vec3(0.5, 1.0, 0.5), 0.6);
+    shared_ptr<Material> material_right  = make_shared<Metal>(glm::vec3(0.8, 0.6, 0.2), 0.0);
 
     world.append(make_shared<Sphere>(glm::vec3( 0.0, -100.5, -1.0), 100.0, material_ground));
     world.append(make_shared<Sphere>(glm::vec3( 0.0,    0.0, -1.0),   0.5, material_center));
     world.append(make_shared<Sphere>(glm::vec3(-1.0,    0.0, -1.0),   0.5, material_left));
+    world.append(make_shared<Sphere>(glm::vec3(-1.0,    0.0, -1.0), -0.45, material_left));
     world.append(make_shared<Sphere>(glm::vec3( 1.0,    0.0, -1.0),   0.5, material_right));
 
     // Camera
     /* RTIOW Copy */
 
-    double viewport_height = 2.0;
-    double viewport_width = aspect_ratio * viewport_height;
-    double focal_length = 1.0;
-
-    glm::vec3 origin = glm::vec3(0);
-    Camera cam(viewport_width, viewport_height, focal_length, origin);
+    Camera cam(glm::vec3(-2, 2, 1), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0), 30.0, aspect_ratio);
     frame.render(cam, world);
 
     printf("[Save] Saving %s\n", filename);
