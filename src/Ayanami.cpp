@@ -2,7 +2,19 @@
 #include "Ayanami.hpp"
 
 #include "Frame.hpp"
-#include "Material.hpp"
+#include "Camera.hpp"
+#include "World.hpp"
+
+void dump_render_info(Frame& frame, Camera& camera) {
+    printf("\033[1;31m[Render Info]\n");
+    printf("\033[1;32m[Frame]\n");
+    printf("\033[0;37mWidth: %dpx Height: %dpx\nAspect ratio: %f\n", frame.width, frame.height, (double)frame.width / frame.height);
+    printf("\033[0;37mSPP: %d Recursion Depth: %d\n", frame.samples_per_pixel, frame.rec_depth);
+    printf("\033[1;32m[Camera]\n");
+    printf("\033[0;37mPosition: %.2f %.2f %.2f\n", camera.origin.x, camera.origin.y, camera.origin.z);
+    printf("\033[0;37mAperture: %.2f Focus Distance %.2f\n", camera.aperture, camera.focus_distance);
+    fflush(stdout);
+}
 
 int main(int argc, char** argv) {
     const char* filename = "image.png";
@@ -13,34 +25,39 @@ int main(int argc, char** argv) {
     const auto aspect_ratio = 21.0 / 9.0;
     const int image_width = 1920;
     const int image_height = (int)(image_width / aspect_ratio);
-    const int num_samples = 1 << 7; // 128
+    const int num_samples = 1 << 9; // 512
     const int max_depth = 50;
     Frame frame(image_width, image_height, num_samples, max_depth);
 
     // World
-    double R = glm::cos(3.141592 / 4.0);
-    World world;
-    shared_ptr<Material> material_ground = make_shared<Diffuse>(glm::vec3(0.8, 0.8, 0.0));
-    shared_ptr<Material> material_center = make_shared<Diffuse>(glm::vec3(0.1, 0.2, 0.5));
-    shared_ptr<Material> material_left   = make_shared<Metal>(glm::vec3(0.5, 1.0, 0.5), 0.6);
-    shared_ptr<Material> material_right  = make_shared<Metal>(glm::vec3(0.8, 0.6, 0.2), 0.0);
-
-    world.append(make_shared<Sphere>(glm::vec3( 0.0, -100.5, -1.0), 100.0, material_ground));
-    world.append(make_shared<Sphere>(glm::vec3( 0.0,    0.0, -1.0),   0.5, material_center));
-    world.append(make_shared<Sphere>(glm::vec3(-1.0,    0.0, -1.0),   0.5, material_left));
-    world.append(make_shared<Sphere>(glm::vec3(-1.0,    0.0, -1.0), -0.45, material_left));
-    world.append(make_shared<Sphere>(glm::vec3( 1.0,    0.0, -1.0),   0.5, material_right));
+    World world = r_scene();
+    {
+        shared_ptr<Material> big_sphere = make_shared<Metal>(glm::vec3(0.7, 0.6, 0.5), 0.0);
+        world.append(make_shared<Sphere>(glm::vec3(0.5, 1.0, 3), 1.0, big_sphere));
+    }
+    {
+        shared_ptr<Material> big_sphere = make_shared<Diffuse>(glm::vec3(1.0, 0.5, 0.5));
+        world.append(make_shared<Sphere>(glm::vec3(4, 1.5, 0), 1.0, big_sphere));
+    }
 
     // Camera
     /* RTIOW Copy */
 
-    Camera cam(glm::vec3(-2, 2, 1), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0), 30.0, aspect_ratio);
+    glm::vec3 lookfrom(13, 2, 3);
+    glm::vec3 lookat(0, 0, 0);
+    glm::vec3 vup(0, 1, 0);
+    double focus_distance = 10.0;
+    double aperture = 0.1;
+
+    Camera cam(lookfrom, lookat, vup, 20.0, aspect_ratio, aperture, focus_distance);
+    dump_render_info(frame, cam);
     frame.render(cam, world);
 
-    printf("[Save] Saving %s\n", filename);
+    printf("\033[1;33m[Save] Saving %s\n", filename);
     if (!Image::save(filename, image_width, image_height, frame.data_as_uint8())) {
-        printf("[Error] failed to save %s\n", filename);
+        printf("\033[1;31m[Error] failed to save %s\n", filename);
         exit(-1);
     }
-    printf("[Save] Successfully saved %s\n", filename);
+    printf("\033[1;32m[Save] Successfully saved %s\n", filename);
+    printf("\033[0;37m");
 }

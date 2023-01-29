@@ -1,5 +1,7 @@
 #pragma once
 #include "Object.hpp"
+#include "Utils.hpp"
+#include "Material.hpp"
 
 class World : public Object {
 public:
@@ -11,3 +13,5 @@ public:
 public:
     std::vector<shared_ptr<Object>> objects;
 };
+
+World r_scene();

@@ -46,6 +46,14 @@ glm::vec3 r_hemisphere_vec3(glm::vec3& normal) {
         return -unit_sphere;
 }
 
+glm::vec3 r_disk_vec3() {
+    while (true) {
+        glm::vec3 point = glm::vec3(r_double(-1, 1), r_double(-1, 1), 0);
+        if (glm::dot(point, point) >= 1) continue;
+        return point;
+    }
+}
+
 bool near_zero(double x) {
     return (x < ZERO_TOLERANCE);
 }
