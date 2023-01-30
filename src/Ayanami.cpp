@@ -20,7 +20,7 @@ void dump_render_info(Frame& frame, Camera& camera) {
 #include "Serializer/Serializer.hpp"
 
 int main(int argc, char** argv) {
-    Serializer::SceneSerializer serializer("C:/dev/projects/elven/sample_scene.elv");
+    Serializer::SceneSerializer serializer("sample_scene.elv");
 #if 0
     const char* filename = "image.png";
     if (argc >= 2)
