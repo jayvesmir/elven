@@ -20,6 +20,11 @@ add_executable(
     src/Renderer.cpp
     src/Object.cpp
     src/World.cpp
+    src/Scene.cpp
+    src/Spec.cpp
+    src/Serializer/Serializer.cpp
+    src/Serializer/Parser.cpp
+    src/Serializer/FileIO.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

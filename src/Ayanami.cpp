@@ -5,6 +5,7 @@
 #include "Camera.hpp"
 #include "World.hpp"
 
+
 void dump_render_info(Frame& frame, Camera& camera) {
     printf("\033[1;31m[Render Info]\n");
     printf("\033[1;32m[Frame]\n");
@@ -16,7 +17,11 @@ void dump_render_info(Frame& frame, Camera& camera) {
     fflush(stdout);
 }
 
+#include "Serializer/Serializer.hpp"
+
 int main(int argc, char** argv) {
+    Serializer::SceneSerializer serializer("C:/dev/projects/elven/sample_scene.elv");
+#if 0
     const char* filename = "image.png";
     if (argc >= 2)
         filename = argv[1];
@@ -60,4 +65,5 @@ int main(int argc, char** argv) {
     }
     printf("\033[1;32m[Save] Successfully saved %s\n", filename);
     printf("\033[0;37m");
+#endif
 }

@@ -7,6 +7,10 @@ using std::make_shared;
 
 #include "Ray.hpp"
 
+enum ObjectType {
+    SPHERE = 0
+};
+
 class Material;
 
 struct Hit {

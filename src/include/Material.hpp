@@ -7,6 +7,12 @@
 #include "Utils.hpp"
 #include "Object.hpp"
 
+enum MaterialType {
+    DIFFUSE = 0,
+    METAL,
+    DIELECTRIC
+};
+
 class Material {
 public:
     virtual bool scatter(const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out) const = 0;
