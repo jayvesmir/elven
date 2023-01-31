@@ -77,19 +77,27 @@ bool parse(const char* src, SceneSpec* scene_spec) {
                     break;
 
                 if (*frame_tokens == "width"){
-                    frame_spec.width = atoi(frame_tokens->next->content());
+                    int width;
+                    sscanf(frame_tokens->next->content(), "%d", &width);
+                    frame_spec.width = width;
                     frame_tokens = frame_tokens->next->next;
                     continue;
                 } else if (*frame_tokens == "height") {
-                    frame_spec.height = atoi(frame_tokens->next->content());
+                    int height;
+                    sscanf(frame_tokens->next->content(), "%d", &height);
+                    frame_spec.height = height;
                     frame_tokens = frame_tokens->next->next;
                     continue;
                 } else if (*frame_tokens == "num_samples") {
-                    frame_spec.num_samples = atoi(frame_tokens->next->content());
+                    int num_samples;
+                    sscanf(frame_tokens->next->content(), "%d", &num_samples);
+                    frame_spec.num_samples = num_samples;
                     frame_tokens = frame_tokens->next->next;
                     continue;
                 } else if (*frame_tokens == "recursion_depth") {
-                    frame_spec.recursion_depth = atoi(frame_tokens->next->content());
+                    int recursion_depth;
+                    sscanf(frame_tokens->next->content(), "%d", &recursion_depth);
+                    frame_spec.recursion_depth = recursion_depth;
                     frame_tokens = frame_tokens->next->next;
                     continue;
                 } else if (*frame_tokens == "filename") {
