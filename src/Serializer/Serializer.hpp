@@ -12,6 +12,7 @@
 namespace Serializer {
     class SceneSerializer {
     public:
+        SceneSerializer() = default;
         SceneSerializer(const char* filename);
 
         bool load_scene(const char* filename);

@@ -2,31 +2,19 @@
 #include "Ayanami.hpp"
 
 #include "Scene.hpp"
-
-void dump_render_info(Frame& frame, Camera& camera) {
-    printf("\033[1;31m[Render Info]\n");
-    printf("\033[1;32m[Frame]\n");
-    printf("\033[0;37mWidth: %dpx Height: %dpx\nAspect ratio: %f\n", frame.width, frame.height, (double)frame.width / frame.height);
-    printf("\033[0;37mSPP: %d Recursion Depth: %d\n", frame.samples_per_pixel, frame.rec_depth);
-    printf("\033[1;32m[Camera]\n");
-    printf("\033[0;37mPosition: %.2f %.2f %.2f\n", camera.origin.x, camera.origin.y, camera.origin.z);
-    printf("\033[0;37mAperture: %.2f Focus Distance %.2f\n", camera.aperture, camera.focus_distance);
-    fflush(stdout);
-}
-
 #include "Serializer/Serializer.hpp"
 
 int main(int argc, char** argv) {
-    Serializer::SceneSerializer serializer("sample_scene.elv");
+    Serializer::SceneSerializer serializer;
+    serializer.load_scene("sample_scene.elv");
     Scene* scene = serializer.get_scene();
-    dump_render_info(scene->frame, scene->camera);
     scene->render();
     scene->save();
 
 #if 0
     const char* filename = "image.png";
     // Initial frame parameters
-    const auto aspect_ratio = 16.0 / 9.0;
+    const auto aspect_ratio = 21.0 / 9.0;
     const int image_width = 1920;
     const int image_height = (int)(image_width / aspect_ratio);
     const int num_samples = 1 << 7; // 128

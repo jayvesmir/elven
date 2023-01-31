@@ -6,7 +6,7 @@
 #include "Camera.hpp"
 
 class Scene {
-public:
+private:
     const char* filename;
     Frame frame;
     World world;

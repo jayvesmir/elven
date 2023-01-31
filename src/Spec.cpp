@@ -6,7 +6,7 @@ void CameraSpec::dump(int indent) {
     printf("%*sPosition: %.2f %.2f %.2f\n", indent, "", position.x, position.y, position.z);
     printf("%*sTarget: %.2f %.2f %.2f\n", indent, "", target.x, target.y, target.z);
     printf("%*sVUP: %.2f %.2f %.2f\n", indent, "", vup.x, vup.y, vup.z);
-    printf("%*sFocus Distance: %.2lf Aperture: %.2lf\n", indent, "", focus_distance, aperture);
+    printf("%*sFocus Distance: %.2lf Aperture: %.2lf FOV: %.2lf\n", indent, "", focus_distance, aperture, fov);
 }
 
 void FrameSpec::dump(int indent) {

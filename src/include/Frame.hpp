@@ -17,14 +17,6 @@ public:
         data = new uint32_t[width * height];
     }
 
-    Frame(FrameSpec& spec) {
-        width = spec.width;
-        height = spec.height;
-        samples_per_pixel = spec.num_samples;
-        rec_depth = spec.recursion_depth;
-        data = new uint32_t[width * height];
-    }
-
     // ~Frame() {
     //     delete[] data;
     // }
