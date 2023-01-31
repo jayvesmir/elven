@@ -26,10 +26,14 @@ add_executable(
     src/Serializer/FileIO.cpp
 )
 
-target_include_directories(${PROJECT_NAME}
-                           PRIVATE
-                           lib/
-                           src/include
-                           src/Serializer
-                           lib/glm
-                        )
+find_package(OpenCL REQUIRED)
+target_link_libraries(${PROJECT_NAME} OpenCL::OpenCL)
+
+target_include_directories(
+                        ${PROJECT_NAME}
+                        PRIVATE
+                        lib/
+                        src/include
+                        src/Serializer
+                        lib/glm
+                    )
