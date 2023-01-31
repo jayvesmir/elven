@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "FileIO.hpp"
 
 void Scene::render() {
     frame.render(camera, world);
@@ -12,7 +13,6 @@ bool Scene::save() {
     }
     printf("\033[1;32m[Save] Successfully saved %s\n", filename);
     printf("\033[0;37m");
-    
 }
 
 Scene::Scene(SceneSpec& spec) : filename(spec.filename) {

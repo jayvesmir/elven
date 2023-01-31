@@ -7,6 +7,13 @@ size_t file_size(FILE* file) {
     return size;
 }
 
+size_t file_size(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    size_t size = file_size(file);
+    fclose(file);
+    return size;
+}
+
 const char* file_content(const char* path) {
     FILE* file = fopen(path, "r");
     if (!file) {
@@ -21,6 +28,7 @@ const char* file_content(const char* path) {
 
     char* contents = (char*)malloc(size + 1);
     size_t read_bytes = fread(contents, 1, size, file);
+    fclose(file);
 
     // Make sure to null-terminate the file contents so that we don't get any string-related issues.
     contents[size] = '\0';

@@ -2,7 +2,7 @@
 #include "Ayanami.hpp"
 
 #include "Scene.hpp"
-#include "Serializer/Serializer.hpp"
+#include "Serializer.hpp"
 
 int main(int argc, char** argv) {
     Serializer::SceneSerializer serializer;
