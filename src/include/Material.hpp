@@ -6,12 +6,7 @@
 #include "Ray.hpp"
 #include "Utils.hpp"
 #include "Object.hpp"
-
-enum MaterialType {
-    DIFFUSE = 0,
-    METAL,
-    DIELECTRIC
-};
+#include "Spec.hpp"
 
 class Material {
 public:
@@ -21,6 +16,9 @@ public:
 class Diffuse : public Material {
 public:
     Diffuse(const glm::vec3& albedo) : albedo(albedo) {}
+    Diffuse(MaterialSpec& spec) {
+        albedo = spec.albedo;
+    }
 
     virtual bool scatter(
         const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out
@@ -42,6 +40,7 @@ public:
 class Metal : public Material {
 public:
     Metal(const glm::vec3& albedo, double roughness) : albedo(albedo), roughness(roughness < 1 ? roughness : 1) {}
+    Metal(MaterialSpec& spec) : albedo(spec.albedo), roughness(spec.roughness) {}
 
     virtual bool scatter(
         const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out
@@ -61,6 +60,8 @@ public:
 class Dielectric : public Material {
 public:
     Dielectric(double refraction_index) : refraction_index(refraction_index) {}
+    Dielectric(MaterialSpec& spec) : refraction_index(spec.refraction_index) {}
+
     virtual bool scatter(
         const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out
     ) const override {

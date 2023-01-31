@@ -1,17 +1,19 @@
 #include "Spec.hpp"
 
-void CameraSpec::dump() {
-    printf("[Camera Spec]\n");
-    printf("Position: %.2f %.2f %.2f\n", position.x, position.y, position.z);
-    printf("Target: %.2f %.2f %.2f\n", target.x, target.y, target.z);
-    printf("VUP: %.2f %.2f %.2f\n", vup.x, vup.y, vup.z);
-    printf("Focus Distance: %.2lf Aperture: %.2lf\n", focus_distance, aperture);
+void CameraSpec::dump(int indent) {
+    printf("%*s\033[1;31m[Camera Spec]\n", (int)fmax(0, indent-1), "");
+    printf("\033[1;37m");
+    printf("%*sPosition: %.2f %.2f %.2f\n", indent, "", position.x, position.y, position.z);
+    printf("%*sTarget: %.2f %.2f %.2f\n", indent, "", target.x, target.y, target.z);
+    printf("%*sVUP: %.2f %.2f %.2f\n", indent, "", vup.x, vup.y, vup.z);
+    printf("%*sFocus Distance: %.2lf Aperture: %.2lf\n", indent, "", focus_distance, aperture);
 }
 
-void FrameSpec::dump() {
-    printf("[Frame Spec]\n");
-    printf("Width: %d Height: %d\n", width, height);
-    printf("SPP: %d Recursion Depth: %d\n", num_samples, recursion_depth);
+void FrameSpec::dump(int indent) {
+    printf("%*s\033[1;31m[Frame Spec]\n", (int)fmax(0, indent-1), "");
+    printf("\033[1;37m");
+    printf("%*sWidth: %d Height: %d\n", indent, "", width, height);
+    printf("%*sSPP: %d Recursion Depth: %d\n", indent, "", num_samples, recursion_depth);
 }
 
 const char* MaterialSpec::type_as_string() {
@@ -26,7 +28,8 @@ const char* MaterialSpec::type_as_string() {
 }
 
 void MaterialSpec::dump(int indent) {
-    printf("%*s[Material Spec]\n", indent, "");
+    printf("%*s\033[1;31m[Material Spec]\n", (int)fmax(0, indent-1), "");
+    printf("\033[1;37m");
     printf("%*sName: %s\n", indent, "", name.c_str());
     printf("%*sType: %s\n", indent, "", type_as_string());
     printf("%*sAlbedo [Diffuse, Metal]: %.2f %.2f %.2f\n", indent, "", albedo.r, albedo.g, albedo.b);
@@ -40,12 +43,13 @@ const char* ObjectSpec::type_as_string() {
     }
 }
 
-void ObjectSpec::dump() {
-    printf("[Object Spec]\n");
-    printf("Type: %s\n", type_as_string());
-    printf("Position: %.2f %.2f %.2f\n", position.x, position.y, position.z);
-    printf("Radius [Sphere]: %.2lf\n", radius);
-    material.dump(2);
+void ObjectSpec::dump(int indent) {
+    printf("%*s\033[1;31m[Object Spec]\n", (int)fmax(0, indent-1), "");
+    printf("\033[1;37m");
+    printf("%*sType: %s\n", indent, "", type_as_string());
+    printf("%*sPosition: %.2f %.2f %.2f\n", indent, "", position.x, position.y, position.z);
+    printf("%*sRadius [Sphere]: %.2lf\n", indent, "", radius);
+    material.dump(indent + 2);
 }
 
 void ObjectSpec::resolve_material(std::vector<MaterialSpec>& materials) {
@@ -57,14 +61,11 @@ void ObjectSpec::resolve_material(std::vector<MaterialSpec>& materials) {
     }
 }
 
-void SceneSpec::dump() {
-    printf("[Scene Spec] -> %s\n", filename);
-    frame_spec.dump();
-    camera_spec.dump();
-    for (int i = 0; i < materials.size(); i++) {
-        materials[i].dump();
-    }
+void SceneSpec::dump(int indent) {
+    printf("\033[1;31m[Scene Spec] -> \033[1;32m%s\n", filename);
+    frame_spec.dump(indent + 2);
+    camera_spec.dump(indent + 2);
     for (int i = 0; i < objects.size(); i++) {
-        objects[i].dump();
+        objects[i].dump(indent + 2);
     }
 }

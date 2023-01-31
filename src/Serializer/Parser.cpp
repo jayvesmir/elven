@@ -157,6 +157,12 @@ bool parse(const char* src, SceneSpec* scene_spec) {
                     camera_spec.aperture = aperture;
                     camera_tokens = camera_tokens->next->next;
                     continue;
+                } else if (*camera_tokens == "fov") {
+                    double fov;
+                    sscanf(camera_tokens->next->content(), "%lf", &fov);
+                    camera_spec.fov = fov;
+                    camera_tokens = camera_tokens->next->next;
+                    continue;
                 }
                 camera_tokens = camera_tokens->next;
             }
@@ -308,14 +314,18 @@ bool parse(const char* src, SceneSpec* scene_spec) {
         tokens = tokens->next;
     }
 
+    if (object_spec.size() == 0 || material_spec.size() == 0)
+        return false;
+
+
     for (int i = 0; i < object_spec.size(); i++) {
         object_spec[i].resolve_material(material_spec);
     }
 
+    camera_spec.aspect_ratio = (double)frame_spec.width / frame_spec.height;
     scene_spec->filename = filename;
     scene_spec->frame_spec = frame_spec;
     scene_spec->camera_spec = camera_spec;
-    scene_spec->materials = material_spec;
     scene_spec->objects = object_spec;
 
     return true;

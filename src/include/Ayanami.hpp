@@ -12,4 +12,4 @@
 #define MT 1
 #define TRACKING 1
 #define SAMPLE_RATE 5
-#define ZERO_TOLERANCE = 1e-8
+#define ZERO_TOLERANCE 1e-8

@@ -7,13 +7,17 @@
 #include "FileIO.hpp"
 #include "Parser.hpp"
 
+#include "Scene.hpp"
+
 namespace Serializer {
     class SceneSerializer {
     public:
         SceneSerializer(const char* filename);
 
-        void load_scene(const char* filename);
+        bool load_scene(const char* filename);
+        Scene* get_scene() { return &scene; }
 
     private:
+        Scene scene;
     };
 }

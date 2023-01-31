@@ -1,7 +1,7 @@
 [Frame]
 width = 1920
-height 823
-num_samples 256
+height 1080
+num_samples 128
 recursion_depth 50
 filename image.png
 
@@ -9,6 +9,7 @@ filename image.png
 position 13, 2, 3
 target 0, 0, 0
 vup 0, 1, 0
+fov 90.0
 focus_distance 10.0
 aperture 0.1
 
@@ -39,9 +40,3 @@ type Sphere
 position 4.0, 1.5, 0.0
 radius 1.0
 material "mat2"
-
-[Object]
-type Sphere
-position 0.0, -1000.0, 0.0
-radius 1000.0
-material "ground_material"

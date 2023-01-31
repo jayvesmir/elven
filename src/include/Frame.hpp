@@ -1,6 +1,7 @@
 #pragma once
 #include "Ayanami.hpp"
 
+#include "Spec.hpp"
 #include "Image.hpp"
 #include "World.hpp"
 #include "Camera.hpp"
@@ -16,9 +17,17 @@ public:
         data = new uint32_t[width * height];
     }
 
-    ~Frame() {
-        delete[] data;
+    Frame(FrameSpec& spec) {
+        width = spec.width;
+        height = spec.height;
+        samples_per_pixel = spec.num_samples;
+        rec_depth = spec.recursion_depth;
+        data = new uint32_t[width * height];
     }
+
+    // ~Frame() {
+    //     delete[] data;
+    // }
 
     void render(Camera& camera, const World& world);
     uint8_t* data_as_uint8() {

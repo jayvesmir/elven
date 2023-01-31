@@ -1,13 +1,20 @@
 #pragma once
 
+#include "Spec.hpp"
 #include "Frame.hpp"
 #include "World.hpp"
 #include "Camera.hpp"
 
-typedef struct Scene {
-    Frame& frame;
-    World& world;
-    Camera& camera;
+class Scene {
+public:
+    const char* filename;
+    Frame frame;
+    World world;
+    Camera camera;
 
+public:
     void render();
-} Scene;
+    bool save();
+    Scene() = default;
+    Scene(SceneSpec& spec);
+};

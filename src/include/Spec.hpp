@@ -2,9 +2,15 @@
 #include <glm/vec3.hpp>
 #include <cstdio>
 #include <vector>
+#include <cstring>
 
-#include "Material.hpp"
 #include "Object.hpp"
+
+enum MaterialType {
+    DIFFUSE = 0,
+    METAL,
+    DIELECTRIC
+};
 
 typedef struct FrameSpec {
     int width;
@@ -12,17 +18,19 @@ typedef struct FrameSpec {
     int num_samples;
     int recursion_depth;
 
-    void dump();
+    void dump(int indent = 0);
 } FrameSpec;
 
 typedef struct CameraSpec {
     glm::vec3 vup;
     glm::vec3 target;
     glm::vec3 position;
+    double fov;
+    double aspect_ratio;
     double focus_distance;
     double aperture;
 
-    void dump();
+    void dump(int indent = 0);
 } CameraSpec;
 
 typedef struct MaterialSpec {
@@ -43,7 +51,7 @@ typedef struct ObjectSpec {
     MaterialSpec material;
     void resolve_material(std::vector<MaterialSpec>& materials);
 
-    void dump();
+    void dump(int indent = 0);
     const char* type_as_string();
 } ObjectSpec;
 
@@ -51,9 +59,8 @@ typedef struct SceneSpec {
     const char* filename;
     FrameSpec frame_spec;
     CameraSpec camera_spec;
-    std::vector<MaterialSpec> materials;
     std::vector<ObjectSpec> objects;
 
-    void dump();
+    void dump(int indent = 0);
     SceneSpec() {};
 } SceneSpec;

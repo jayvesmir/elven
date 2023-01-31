@@ -2,6 +2,7 @@
 #include <glm/vec3.hpp>
 
 #include "Ray.hpp"
+#include "Spec.hpp"
 #include "Utils.hpp"
 
 class Camera {
@@ -21,6 +22,25 @@ public:
         horizontal = glm::vec3(focus_distance) * glm::vec3(viewport_width) * u;
         vertical = glm::vec3(focus_distance) * glm::vec3(viewport_height) * v;
         lower_left_corner = origin - horizontal/glm::vec3(2) - vertical/glm::vec3(2) - glm::vec3(focus_distance) * w;
+        lens_radius = aperture / 2;
+    }
+
+    Camera(CameraSpec& spec) {
+        double theta = deg2rad(spec.fov);
+        double h = glm::tan(theta / 2);
+        double viewport_height = 2.0 * h;
+        double viewport_width = spec.aspect_ratio * viewport_height;
+
+        w = glm::normalize(spec.position - spec.target);
+        u = glm::normalize(glm::cross(spec.vup, w));
+        v = glm::cross(w, u);
+
+        origin = spec.position;
+        horizontal = glm::vec3(spec.focus_distance) * glm::vec3(viewport_height) * u;
+        vertical = glm::vec3(spec.focus_distance) * glm::vec3(viewport_height) * v;
+        lower_left_corner = origin - horizontal/glm::vec3(2) - vertical/glm::vec3(2) - glm::vec3(spec.focus_distance) * w;
+        focus_distance = spec.focus_distance;
+        aperture = spec.aperture;
         lens_radius = aperture / 2;
     }
 
