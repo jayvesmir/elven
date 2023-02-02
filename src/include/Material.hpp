@@ -57,6 +57,7 @@ public:
 
 // Broken :O
 // TODO: fix fr
+// 31/1/23 20:54 - going crazy 
 class Dielectric : public Material {
 public:
     Dielectric(double refraction_index) : refraction_index(refraction_index) {}
@@ -65,7 +66,7 @@ public:
     virtual bool scatter(
         const Ray& ray, const Hit& hit, glm::vec3& color, Ray& ray_out
     ) const override {
-        color = glm::vec3(1.0);
+        color = glm::vec3(1.0, 1.0, 1.0);
         double refraction_ratio = hit.front ? (1.0 / refraction_index) : refraction_index;
 
         glm::vec3 unit_direction = glm::normalize(ray.direction);
@@ -75,10 +76,10 @@ public:
         bool cannot_refract = refraction_ratio * sin_theta > 1.0;
         glm::vec3 direction;
 
-        if (cannot_refract) {
+        if (cannot_refract || reflectance(cos_theta, refraction_ratio) > r_double()) {
             direction = glm::reflect(unit_direction, hit.normal);
         } else {
-            direction = glm::refract(unit_direction, hit.normal, reinterpret_cast<float&>(refraction_ratio));
+            direction = glm::refract(unit_direction, hit.normal, (float)refraction_ratio);
         }
 
         ray_out = Ray(hit.point, direction);
@@ -86,4 +87,11 @@ public:
     }
 public:
     double refraction_index;
+
+private:
+    static double reflectance(double cosine, double refraction_index) {
+        double r0 = (1 - refraction_index) / (1 + refraction_index);
+        r0 = r0 * r0;
+        return r0 + (1 - r0) * glm::pow(1 - cosine, 5);
+    }
 };

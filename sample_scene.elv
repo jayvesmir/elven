@@ -1,7 +1,7 @@
 [Frame]
-width = 1920
-height 823
-num_samples 128
+width = 2560
+height 1097
+num_samples 256
 recursion_depth 50
 filename image.png
 

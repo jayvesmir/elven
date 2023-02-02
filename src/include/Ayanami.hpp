@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdint>
 #include <cstdlib>
+#include <cmath>
 
 #include <thread>
 #include <memory>

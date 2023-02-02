@@ -2,7 +2,7 @@
 
 size_t file_size(FILE* file) {
     fseek(file, 0, SEEK_END);
-    long size = ftell(file);
+    size_t size = ftell(file);
     fseek(file, 0, SEEK_SET);
     return size;
 }
@@ -14,10 +14,10 @@ size_t file_size(const char* filename) {
     return size;
 }
 
-const char* file_content(const char* path) {
-    FILE* file = fopen(path, "r");
+const char* file_content(const char* filename) {
+    FILE* file = fopen(filename, "r");
     if (!file) {
-        printf("Error while opening %s\n", path);
+        printf("Error while opening %s\n", filename);
         return NULL;
     }
 
@@ -26,11 +26,8 @@ const char* file_content(const char* path) {
         return NULL;
     }
 
-    char* contents = (char*)malloc(size + 1);
-    size_t read_bytes = fread(contents, 1, size, file);
+    char* contents = (char*)calloc(size, 1);
+    size_t read_bytes = fread_s(contents, size, 1, size, file);
     fclose(file);
-
-    // Make sure to null-terminate the file contents so that we don't get any string-related issues.
-    contents[size] = '\0';
     return contents;
 }
