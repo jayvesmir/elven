@@ -17,6 +17,7 @@ public:
         data = new uint32_t[width * height];
     }
 
+    // Segfaults :)
     // ~Frame() {
     //     delete[] data;
     // }

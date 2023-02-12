@@ -15,6 +15,10 @@ bool Scene::save() {
     printf("\033[0;37m");
 }
 
+void Scene::free() {
+    delete[] frame.data;
+}
+
 Scene::Scene(SceneSpec& spec) : filename(spec.filename) {
     frame = Frame(spec.frame_spec.width, spec.frame_spec.height, spec.frame_spec.num_samples, spec.frame_spec.recursion_depth);
     camera = Camera(spec.camera_spec.position, spec.camera_spec.target, spec.camera_spec.vup, spec.camera_spec.fov, spec.camera_spec.aspect_ratio, spec.camera_spec.aperture, spec.camera_spec.focus_distance);

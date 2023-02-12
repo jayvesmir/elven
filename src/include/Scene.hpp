@@ -15,6 +15,7 @@ private:
 public:
     void render();
     bool save();
+    void free();
     Scene() = default;
     Scene(SceneSpec& spec);
 };
